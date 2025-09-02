@@ -3,7 +3,7 @@
 > A modern and scalable **Doctor Appointment Booking Platform** built with  
 **Next.js 15, Prisma, Neon PostgreSQL, TailwindCSS, Shadcn UI, Vonage, and Clerk**.  
 
-![SehatLink Banner](https://img.freepik.com/free-vector/doctor-online-appointment-illustration_23-2148860204.jpg)  
+
 
 ---
 
