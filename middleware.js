@@ -1,7 +1,7 @@
-import { auth } from "@clerk/nextjs/edge";
+import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-// Define protected routes
+// Protected routes
 const protectedRoutes = [
   "/doctors",
   "/onboarding",
@@ -14,7 +14,6 @@ const protectedRoutes = [
 export default function middleware(req) {
   const { userId } = auth(req);
 
-  // Check if the request matches any protected route
   const isProtected = protectedRoutes.some((route) =>
     req.nextUrl.pathname.startsWith(route)
   );
