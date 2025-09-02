@@ -1,25 +1,32 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/edge";
 import { NextResponse } from "next/server";
 
-// Protect these routes
-const isProtectedRoute = createRouteMatcher([
-  "/doctors(.*)",
-  "/onboarding(.*)",
-  "/doctor(.*)",
-  "/admin(.*)",
-  "/video-call(.*)",
-  "/appointments(.*)",
-]);
+// Define protected routes
+const protectedRoutes = [
+  "/doctors",
+  "/onboarding",
+  "/doctor",
+  "/admin",
+  "/video-call",
+  "/appointments",
+];
 
-export default clerkMiddleware((auth, req) => {
-  if (!auth().userId && isProtectedRoute(req)) {
-    return auth().redirectToSignIn();
+export default function middleware(req) {
+  const { userId } = auth(req);
+
+  // Check if the request matches any protected route
+  const isProtected = protectedRoutes.some((route) =>
+    req.nextUrl.pathname.startsWith(route)
+  );
+
+  if (!userId && isProtected) {
+    return NextResponse.redirect(new URL("/sign-in", req.url));
   }
 
   return NextResponse.next();
-});
+}
 
-// ✅ Edge runtime (default + works on Vercel stable)
+// Edge runtime config
 export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
