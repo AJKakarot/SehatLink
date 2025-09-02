@@ -22,6 +22,7 @@ export default clerkMiddleware((auth, req) => {
 
 // Ensure matcher works properly with Edge runtime
 export const config = {
+  runtime: "nodejs",
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     "/(api|trpc)(.*)",
