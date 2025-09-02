@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsHmrCache: false, // defaults to true
-    nodeMiddleware: true,            // ✅ enable Node.js runtime for middleware
+    serverComponentsHmrCache: false,
+    // nodeMiddleware: true, // remove this line
   },
   images: {
     remotePatterns: [
@@ -13,7 +13,7 @@ const nextConfig = {
     ],
   },
   eslint: {
-    ignoreDuringBuilds: true, // optional, stops ESLint breaking Vercel builds
+    ignoreDuringBuilds: true,
   },
 };
 
