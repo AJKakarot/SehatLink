@@ -14,7 +14,7 @@
     "@clerk/nextjs": "^6.19.3",
     "@clerk/themes": "^2.2.43",
     "@hookform/resolvers": "^5.0.1",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.15.0",
     "@radix-ui/react-alert-dialog": "^1.1.13",
     "@radix-ui/react-dialog": "^1.1.13",
     "@radix-ui/react-label": "^2.1.6",
@@ -51,7 +51,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "postcss": "^8.5.3",
-    "prisma": "^6.8.2",
+    "prisma": "^6.15.0",
     "tailwindcss": "^4.1.7",
     "tw-animate-css": "^1.2.9",
     "typescript": "^5.9.2"
