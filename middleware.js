@@ -1,34 +1,31 @@
-import { auth } from "@clerk/nextjs";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Protected routes
-const protectedRoutes = [
-  "/doctors",
-  "/onboarding",
-  "/doctor",
-  "/admin",
-  "/video-call",
-  "/appointments",
-];
+const isProtectedRoute = createRouteMatcher([
+  "/doctors(.*)",
+  "/onboarding(.*)",
+  "/doctor(.*)",
+  "/admin(.*)",
+  "/video-call(.*)",
+  "/appointments(.*)",
+]);
 
-export default function middleware(req) {
-  const { userId } = auth(req);
+export default clerkMiddleware(async (auth, req) => {
+  const { userId } = await auth();
 
-  const isProtected = protectedRoutes.some((route) =>
-    req.nextUrl.pathname.startsWith(route)
-  );
-
-  if (!userId && isProtected) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
+  if (!userId && isProtectedRoute(req)) {
+    const { redirectToSignIn } = await auth();
+    return redirectToSignIn();
   }
 
   return NextResponse.next();
-}
+});
 
-// Edge runtime config
 export const config = {
   matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };
