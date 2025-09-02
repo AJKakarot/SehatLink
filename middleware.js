@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-// Define which routes need authentication
+// Protect these routes
 const isProtectedRoute = createRouteMatcher([
   "/doctors(.*)",
   "/onboarding(.*)",
@@ -12,7 +12,6 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, req) => {
-  // auth() is already resolved here (don’t call it with await)
   if (!auth().userId && isProtectedRoute(req)) {
     return auth().redirectToSignIn();
   }
@@ -20,9 +19,7 @@ export default clerkMiddleware((auth, req) => {
   return NextResponse.next();
 });
 
-// 👇 export runtime separately
-export const runtime = "nodejs";
-
+// ✅ Edge runtime (default + works on Vercel stable)
 export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
