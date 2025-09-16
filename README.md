@@ -36,9 +36,9 @@
 | 👨‍💻 Ajeet   | Full Stack Developer |
 | 👨‍💻 Alok    | Backend Engineer     |
 | 👨‍💻 Shivam  | Database & API Dev   |
-| 👩‍💻 Aditi   | Frontend Developer   |
+| 👩‍💻 Khushi  | Frontend Developer   |
 | 👩‍💻 Monisha | UI/UX Designer       |
-| 👩‍💻 Khushi  | QA & Documentation   |
+| 👩‍💻 Aditi   | QA & Documentation   |
 
 ---
 
