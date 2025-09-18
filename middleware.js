@@ -28,6 +28,4 @@ export const config = {
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
-  nodejs : true,  // Enable Node.js compatibility mode
-  
 };
