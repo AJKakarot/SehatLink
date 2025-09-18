@@ -60,7 +60,7 @@ export function AppointmentForm({ doctorId, slot, onBack, onComplete }) {
             Cost: <span className="text-white font-medium">2 credits</span>
           </span>
         </div>
-      </div>
+0      </div>
 
       <div className="space-y-2">
         <Label htmlFor="description">

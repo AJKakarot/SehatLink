@@ -140,6 +140,7 @@ export async function bookAppointment(formData) {
   } catch (error) {
     console.error("Failed to book appointment:", error);
     throw new Error("Failed to book appointment:" + error.message);
+    
   }
 }
 

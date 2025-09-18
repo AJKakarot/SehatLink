@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     serverComponentsHmrCache: false,
-    // nodeMiddleware: true, // remove this line
+     nodeMiddleware: true, // remove this line
   },
   images: {
     remotePatterns: [
