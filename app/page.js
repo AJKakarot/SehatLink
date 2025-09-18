@@ -24,7 +24,7 @@ export default function Home() {
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              Consult with experts <br />
+              Consultt with experts <br />
               <span className="gradient-title">when it matters most</span>
             </h1>
 
