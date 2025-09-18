@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// Define which routes are protected
 const isProtectedRoute = createRouteMatcher([
   "/doctors(.*)",
   "/onboarding(.*)",
@@ -11,17 +12,24 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
+  try {
+    const { userId } = await auth();
 
-  if (!userId && isProtectedRoute(req)) {
-    // Redirect to Clerk sign-in page and return back to the original URL after login
-    const signInUrl = `/sign-in?redirect_url=${encodeURIComponent(req.url)}`;
-    return NextResponse.redirect(signInUrl);
+    // If not logged in and trying to access protected route
+    if (!userId && isProtectedRoute(req)) {
+      // Redirect to Clerk sign-in page with return back URL
+      const signInUrl = `/sign-in?redirect_url=${encodeURIComponent(req.url)}`;
+      return NextResponse.redirect(signInUrl);
+    }
+
+    return NextResponse.next();
+  } catch (err) {
+    console.error("Middleware error:", err);
+    return NextResponse.error();
   }
-
-  return NextResponse.next();
 });
 
+// Apply middleware only to protected routes + API/trpc routes
 export const config = {
   matcher: [
     "/doctors/:path*",
@@ -30,7 +38,7 @@ export const config = {
     "/admin/:path*",
     "/video-call/:path*",
     "/appointments/:path*",
-    "/api/:path*", // Run middleware for API routes
-    "/trpc/:path*", // Run middleware for TRPC routes
+    "/api/:path*",
+    "/trpc/:path*",
   ],
 };
